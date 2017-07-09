@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style>
+            body {
+                margin: 0px;
+                padding: 0px;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="myCanvas" width="678" height="678"></canvas>
+        <script>
+            var canvas = document.getElementById('myCanvas');
+            var context = canvas.getContext('2d');
+            var imageObj = new Image();
+
+            imageObj.src = 'sponge.jpg';
+            var x = canvas.width / 2;
+            var y = canvas.height / 8;
+            spongy = (text) => text.split("").map((x, i) => i % 2 ? x.toUpperCase() : x.toLowerCase()).join("");;
+            function toHex(s) {
+                // utf8 to latin1
+                var s = unescape(encodeURIComponent(s))
+                var h = ''
+                for (var i = 0; i < s.length; i++) {
+                    h += s.charCodeAt(i).toString(16)
+                }
+                return h
+            }
+
+            function fromHex(h) {
+                var s = ''
+                for (var i = 0; i < h.length; i+=2) {
+                    s += String.fromCharCode(parseInt(h.substr(i, 2), 16))
+                }
+                return decodeURIComponent(escape(s))
+            }
+            function getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, "\\$&");
+                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            }
+
+            var q = getParameterByName("q");
+            q = fromHex(q);
+            imageObj.onload = function() {
+                context.drawImage(imageObj, 0, 0);
+                context.textAlign = 'center'
+                context.font = '32pt Calibri';
+                context.strokeStyle = 'black';
+                context.lineWidth = 8;
+                var t = spongy(q);
+                context.strokeText(t, x, y);
+                context.fillStyle = 'white';
+                context.fillText(t, x, y);
+            };
+
+        </script>
+    </body>
+</html>
