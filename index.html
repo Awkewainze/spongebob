@@ -15,8 +15,7 @@
         <br>
         <input type="text" name="word" id="text" value="" onkeyup="pressed()">
         <br>
-        <label for="out">Share with others</label>
-        <input type="text" name="out" id="out" value="">
+        <a id="out" href="index.html">Share with others</a>
         <script>
             var canvas = document.getElementById('myCanvas');
             var context = canvas.getContext('2d');
@@ -60,7 +59,7 @@
                 context.strokeText(t, x, y);
                 context.fillStyle = 'white';
                 context.fillText(t, x, y);
-                output.value = "http://dylan.walseth.me/spongbob-mock-meme/generated.html?q="+toHex(inputField.value)
+                output.href = "http://dylan.walseth.me/spongbob-mock-meme/generated.html?q="+toHex(inputField.value);
             }
         </script>
     </body>
